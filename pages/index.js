@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
+
 export default function Home() {
   const [problemStatement, setProblemStatement] = useState('');
   const [proposedStatement, setProposedStatement] = useState('');
@@ -222,13 +223,20 @@ export default function Home() {
                   errors.revenueMatrix}
               </div>
 
-              <div className="fixed bottom-0 left-0 bg-white p-2 w-full shadow-md border-2">
+              <div className="fixed bottom-0 left-0 bg-white p-2 w-full shadow-md border-2 flex justify-between">
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className="btn bg-blue-600 border p-2 rounded-lg text-white"
                 >
                   Submit
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn bg-gray-600 border p-2 rounded-lg text-white"
+                >
+                  Export
                 </button>
               </div>
             </form>
@@ -279,7 +287,7 @@ export default function Home() {
   };
   return (
     <div className="bg-green-50">
-      <div className="row border-2 shadow-md p-1 fixed top-0 w-full z-10">
+      <div className="row border-2 shadow-md p-1 fixed top-0 w-full z-10 bg-white">
         <div className="col font-bold text-2xl text-center">
           Business Plan template
         </div>
