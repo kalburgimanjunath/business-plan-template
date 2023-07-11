@@ -23,7 +23,7 @@ export default function Home() {
 
   const FormBusinessPlan = () => {
     return (
-      <div className="w-full sticky top-0 left-0 bg-white ">
+      <div className="w-full ">
         <Formik
           initialValues={{
             problemStatement: '',
@@ -80,8 +80,9 @@ export default function Home() {
             isSubmitting,
             /* and other goodies */
           }) => (
-            <form onSubmit={handleSubmit} className="row m-5">
-              <div className="form-group border border-primary p-2 m-2">
+            <form onSubmit={handleSubmit} className="">
+              <div className="row font-bold p-2 m-2 text-lg">Fill the form</div>
+              <div className="form-group p-2 m-2">
                 <label htmlFor="problemStatement">Problem Statement</label>
                 <textarea
                   type="text"
@@ -98,7 +99,7 @@ export default function Home() {
                   touched.problemStatement &&
                   errors.problemStatement}
               </div>
-              <div className="form-group border border-primary p-2 m-2">
+              <div className="form-group p-2 m-2">
                 <label htmlFor="proposedStatement">Proposed Solution</label>
                 <textarea
                   type="text"
@@ -113,7 +114,7 @@ export default function Home() {
                   touched.proposedStatement &&
                   errors.proposedStatement}
               </div>
-              <div className="form-group border border-primary p-2 m-2">
+              <div className="form-group p-2 m-2">
                 <label htmlFor="existingAlternatives">
                   Existing Alternatives
                 </label>
@@ -131,7 +132,7 @@ export default function Home() {
                   errors.existingAlternatives}
               </div>
 
-              <div className="form-group border border-primary p-2 m-2">
+              <div className="form-group p-2 m-2">
                 <label htmlFor="uniqueValue">Unique Value Proposition</label>
                 <textarea
                   type="text"
@@ -146,7 +147,7 @@ export default function Home() {
                   touched.uniqueValue &&
                   errors.uniqueValue}
               </div>
-              <div className="form-group border border-primary p-2 m-2">
+              <div className="form-group p-2 m-2">
                 <label htmlFor="webmatrices">Web Matrices/Analysis</label>
                 <textarea
                   type="text"
@@ -161,7 +162,7 @@ export default function Home() {
                   touched.uniqueValue &&
                   errors.uniqueValue}
               </div>
-              <div className="form-group border border-primary p-2 m-2">
+              <div className="form-group p-2 m-2">
                 <label htmlFor="earlyAdaptors">Early Adaptors</label>
                 <textarea
                   type="text"
@@ -176,7 +177,7 @@ export default function Home() {
                   touched.earlyAdaptors &&
                   errors.earlyAdaptors}
               </div>
-              <div className="form-group border border-primary p-2 m-2">
+              <div className="form-group p-2 m-2">
                 <label htmlFor="marketingSegment">Marketing Segment</label>
                 <textarea
                   type="text"
@@ -192,7 +193,7 @@ export default function Home() {
                   errors.marketingSegment}
               </div>
 
-              <div className="form-group border border-primary p-2 m-2">
+              <div className="form-group p-2 m-2">
                 <label htmlFor="costMatrix">Cost Matrix</label>
                 <textarea
                   type="text"
@@ -205,7 +206,7 @@ export default function Home() {
                 />
                 {errors.costMatrix && touched.costMatrix && errors.costMatrix}
               </div>
-              <div className="form-group border border-primary p-2 m-2">
+              <div className="form-group p-2 m-2">
                 <label htmlFor="revenueMatrix">Revenue Matrix</label>
                 <textarea
                   type="text"
@@ -277,8 +278,8 @@ export default function Home() {
     );
   };
   return (
-    <div>
-      <div className="row border-2 shadow-md p-2 fixed top-0 w-full bg-white z-10">
+    <div className="bg-green-50">
+      <div className="row border-2 shadow-md p-1 fixed top-0 w-full z-10">
         <div className="col font-bold text-2xl text-center">
           Business Plan template
         </div>
@@ -287,7 +288,7 @@ export default function Home() {
         <div className="col col-span-1">
           <FormBusinessPlan />
         </div>
-        <div className="col ml-5 border-2 text-center col-span-3">
+        <div className="col ml-5 border-2 text-center col-span-3 bg-red-50 ">
           <Preview />
         </div>
       </div>
