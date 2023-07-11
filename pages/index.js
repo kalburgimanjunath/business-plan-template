@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 export default function Home() {
   const [problemStatement, setProblemStatement] = useState('');
@@ -12,7 +12,7 @@ export default function Home() {
   const [revenueMatrix, setRevenueMatrix] = useState('');
   const FormBusinessPlan = () => {
     return (
-      <div className="row">
+      <div className="w-full">
         <Formik
           initialValues={{
             problemStatement: '',
@@ -50,11 +50,11 @@ export default function Home() {
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
-            localStorage.setItem('user', JSON.stringify(values, null, 2));
+            localStorage.setItem('plan', JSON.stringify(values, null, 2));
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
-              setFormSubmitted(true);
+              // setFormSubmitted(true);
             }, 400);
           }}
         >
@@ -71,7 +71,7 @@ export default function Home() {
             <form onSubmit={handleSubmit} className="row m-5">
               <div className="form-group border border-primary p-2 m-2">
                 <label htmlFor="problemStatement">Problem Statement</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="problemStatement"
@@ -88,7 +88,7 @@ export default function Home() {
               </div>
               <div className="form-group border border-primary p-2 m-2">
                 <label htmlFor="proposedStatement">Proposed Solution</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="proposedStatement"
@@ -105,7 +105,7 @@ export default function Home() {
                 <label htmlFor="existingAlternatives">
                   Existing Alternatives
                 </label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="existingAlternatives"
@@ -121,7 +121,7 @@ export default function Home() {
 
               <div className="form-group border border-primary p-2 m-2">
                 <label htmlFor="uniqueValue">Unique Value Proposition</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="uniqueValue"
@@ -136,7 +136,7 @@ export default function Home() {
               </div>
               <div className="form-group border border-primary p-2 m-2">
                 <label htmlFor="webmatrices">Web Matrices/Analysis</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="webmatrices"
@@ -151,7 +151,7 @@ export default function Home() {
               </div>
               <div className="form-group border border-primary p-2 m-2">
                 <label htmlFor="earlyAdaptors">Early Adaptors</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="earlyAdaptors"
@@ -166,7 +166,7 @@ export default function Home() {
               </div>
               <div className="form-group border border-primary p-2 m-2">
                 <label htmlFor="marketingSegment">Marketing Segment</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="marketingSegment"
@@ -182,7 +182,7 @@ export default function Home() {
 
               <div className="form-group border border-primary p-2 m-2">
                 <label htmlFor="costMatrix">Cost Matrix</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="costMatrix"
@@ -195,7 +195,7 @@ export default function Home() {
               </div>
               <div className="form-group border border-primary p-2 m-2">
                 <label htmlFor="revenueMatrix">Revenue Matrix</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   onChange={handleChange}
@@ -209,13 +209,15 @@ export default function Home() {
                   errors.revenueMatrix}
               </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn bg-blue-600 border p-2 rounded-lg text-white"
-              >
-                Submit
-              </button>
+              <div className="fixed bottom-0 left-0 bg-white p-2 w-full shadow-md border-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn bg-blue-600 border p-2 rounded-lg text-white"
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           )}
         </Formik>
@@ -223,36 +225,66 @@ export default function Home() {
     );
   };
   const Preview = () => {
+    const [plan, setItems] = useState([]);
+
+    useEffect(() => {
+      const items = JSON.parse(localStorage.getItem('plan'));
+      if (items) {
+        setItems(items);
+      }
+    }, []);
+    console.log(plan);
     return (
-      <div className="grid grid-cols-7">
-        <div className="col">{problemStatement}</div>
-        <div className="col">
+      <div className="grid grid-cols-5 m-5 border text-center preview h-full">
+        <div className="col p-3 border h-fullr">
+          <h1>Problem Statement</h1>
+          <div>{plan.problemStatement}</div>
+        </div>
+        <div className="col p-3 border h-full">
           <div className="row">
-            <div className="row">{proposedStatement}</div>
-            <div className="row">{existingAlternatives}</div>
+            <div className="row  p-3 border">
+              <h1>Proposed Solution</h1>
+              <div>{plan.proposedStatement}</div>
+            </div>
+            <div className="row  p-3 border">
+              <h1>Existing Alternatives</h1>
+              <div>{plan.existingAlternatives}</div>
+            </div>
           </div>
         </div>
-        <div className="col">{uniqueValue}</div>
-        <div className="col">
-          <div className="row">{earlyAdaptors}</div>
-          <div className="row">{webmatrices}</div>
+        <div className="col  p-3 border">
+          <h1>Unique Value Proposition</h1>
+          <div>{plan.uniqueValue}</div>
         </div>
-        <div className="col">{marketingSegment}</div>
+        <div className="col  p-3 border">
+          <div className="row  p-3 border">
+            <h1>Early Adaptors</h1>
+            <div>{plan.earlyAdaptors}</div>
+          </div>
+          <div className="row  p-3 border">
+            <h1>Web Matrices</h1>
+            <div>{plan.webmatrices}</div>
+          </div>
+        </div>
+        <div className="col  p-3 border">
+          <h1>Marketing Segment</h1>
+          <div>{plan.marketingSegment}</div>
+        </div>
       </div>
     );
   };
   return (
     <div>
-      <div className="row">
-        <div className="col font-bold text-2xl text-center underline">
+      <div className="row border-2 shadow-md p-2 fixed top-0 w-full bg-white">
+        <div className="col font-bold text-2xl text-center">
           Business Plan template
         </div>
       </div>
-      <div className="grid grid-cols-2">
-        <div className="col mr-5">
+      <div className="grid grid-cols-4 m-10 gap-4">
+        <div className="col col-span-1">
           <FormBusinessPlan />
         </div>
-        <div className="col ml-5 border-2 text-center">
+        <div className="col ml-5 border-2 text-center col-span-3">
           <Preview />
         </div>
       </div>
