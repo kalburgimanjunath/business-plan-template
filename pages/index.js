@@ -13,7 +13,7 @@ export default function Home() {
   const [revenueMatrix, setRevenueMatrix] = useState('');
   const [plan, setItems] = useState([]);
   const [isformSubmitted, setFullFormSubmitted] = useState(false);
-
+  const [hideForm, setHideForm] = useState(false);
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('plan'));
     if (items) {
@@ -24,7 +24,7 @@ export default function Home() {
 
   const FormBusinessPlan = () => {
     return (
-      <div className="w-full ">
+      <div className="w-full left">
         <Formik
           initialValues={{
             problemStatement: '',
@@ -229,11 +229,11 @@ export default function Home() {
                   disabled={isSubmitting}
                   className="btn bg-blue-600 border p-2 rounded-lg text-white"
                 >
-                  Submit
+                  Save Plan
                 </button>
                 <button
-                  type="submit"
-                  disabled={isSubmitting}
+                  type="button"
+                  onClick={() => window.print()}
                   className="btn bg-gray-600 border p-2 rounded-lg text-white"
                 >
                   Export
@@ -248,7 +248,7 @@ export default function Home() {
   const Preview = () => {
     return (
       <div className="grid grid-cols-5 m-5 border text-center preview h-full">
-        <div className="col p-3 border h-fullr">
+        <div className="col p-3 border h-full">
           <h1>Problem Statement</h1>
           <div>{plan.problemStatement}</div>
         </div>
@@ -287,16 +287,20 @@ export default function Home() {
   };
   return (
     <div className="bg-green-50">
-      <div className="row border-2 shadow-md p-1 fixed top-0 w-full z-10 bg-white">
+      <div className="row border-2 shadow-md p-1 fixed top-0 w-full z-10 bg-white text-black">
         <div className="col font-bold text-2xl text-center">
           Business Plan template
         </div>
       </div>
       <div className="grid grid-cols-4 m-10 gap-4">
-        <div className="col col-span-1">
+        <div
+          className="col col-span-1 left"
+          style={{ display: hideForm ? 'none' : 'display' }}
+        >
           <FormBusinessPlan />
         </div>
-        <div className="col ml-5 border-2 text-center col-span-3 bg-red-50 ">
+        <div className="col ml-5 border-2 text-center col-span-3 right ">
+          <button onClick={() => setHideForm(!hideForm)}>button</button>
           <Preview />
         </div>
       </div>
