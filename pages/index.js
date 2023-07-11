@@ -10,9 +10,20 @@ export default function Home() {
   const [marketingSegment, setMarketingSegment] = useState('');
   const [costMatrix, setCostMatrix] = useState('');
   const [revenueMatrix, setRevenueMatrix] = useState('');
+  const [plan, setItems] = useState([]);
+  const [isformSubmitted, setFullFormSubmitted] = useState(false);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('plan'));
+    if (items) {
+      setItems(items);
+    }
+  }, [isformSubmitted]);
+  console.log(plan);
+
   const FormBusinessPlan = () => {
     return (
-      <div className="w-full">
+      <div className="w-full sticky top-0 left-0 bg-white ">
         <Formik
           initialValues={{
             problemStatement: '',
@@ -55,6 +66,7 @@ export default function Home() {
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
               // setFormSubmitted(true);
+              setFullFormSubmitted(true);
             }, 400);
           }}
         >
@@ -225,15 +237,6 @@ export default function Home() {
     );
   };
   const Preview = () => {
-    const [plan, setItems] = useState([]);
-
-    useEffect(() => {
-      const items = JSON.parse(localStorage.getItem('plan'));
-      if (items) {
-        setItems(items);
-      }
-    }, []);
-    console.log(plan);
     return (
       <div className="grid grid-cols-5 m-5 border text-center preview h-full">
         <div className="col p-3 border h-fullr">
@@ -275,7 +278,7 @@ export default function Home() {
   };
   return (
     <div>
-      <div className="row border-2 shadow-md p-2 fixed top-0 w-full bg-white">
+      <div className="row border-2 shadow-md p-2 fixed top-0 w-full bg-white z-10">
         <div className="col font-bold text-2xl text-center">
           Business Plan template
         </div>
